@@ -1,0 +1,20 @@
+Add-Type -AssemblyName System.speech
+$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer
+$speak.rate = 2
+$speak.Speak("Hello my name is Conscious Planet Examination Juggernaut, please tell me your name?")
+$name = read-host "please tell me your name"
+
+$speak.Speak("Hello, $name, it is nice to meet you, i know a lot of things, ask me something")
+
+$term = Read-Host "ask me something"
+
+$uri = "http://api.urbandictionary.com/v0/define?term=$term" 
+$response = Invoke-RestMethod -Uri $uri
+$response.title
+$response.count
+$response1 = $response | format-list -property list | Out-File D:\downloads\robot1.txt
+$txtparse = Get-Content -Path D:\downloads\robot1.txt 
+$cleanup = $txtparse -Replace '\d+' -replace 'http://' -replace 'urbanup.com' -replace '=' -replace '_' -replace 'permalink' -replace ':' -replace"thumbsup" -replace 'thumbsdown' -replace "$&+,:;=?@#|'<>.^*()%!-" -replace "definition" -replace "defid" -replace "currentvote" -replace "@" -replace "list" -replace '\d{4}' -replace "writtenon--T.Z" -replace '\.' -replace '\\' -replace '\/' -replace "author=*" -replace 'object'
+
+
+$speak.Speak("ok $name, what i know about $term is $cleanup")
