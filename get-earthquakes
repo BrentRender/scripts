@@ -1,0 +1,11 @@
+## get todays earthquakes
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+$result = Invoke-restmethod -uri "https://api.geonet.org.nz//quake?MMI=1"  | ConvertTo-Json -Depth 10
+
+$result1 = ConvertFrom-Json -InputObject $result
+
+$data = $result1.features.properties | Out-String
+
+$data
